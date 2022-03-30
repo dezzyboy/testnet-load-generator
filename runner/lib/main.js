@@ -441,7 +441,11 @@ const main = async (progName, rawArgs, powers) => {
     const spawnChain = async (nextStep) => {
       stageConsole.log('Running chain');
       logPerfEvent('run-chain-start');
-      const runChainResult = await runChain({ stdout: out, stderr: err });
+      const runChainResult = await runChain({
+        stdout: out,
+        stderr: err,
+        xsnapRecord: `${outputDir}/chain-xsnap-record-${currentStage}`,
+      });
       logPerfEvent('run-chain-finish');
       stats.recordChainStart(timeSource.getTime());
 

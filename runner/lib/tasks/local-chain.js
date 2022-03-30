@@ -235,8 +235,8 @@ export const makeTasks = ({
     return harden(storageLocations);
   };
 
-  /** @param {import("./types.js").TaskBaseOptions} options */
-  const runChain = async ({ stdout, stderr, timeout = 180 }) => {
+  /** @param {import("./types.js").RunChainOptions} options */
+  const runChain = async ({ stdout, stderr, timeout = 180, xsnapRecord }) => {
     const { console, stdio } = getConsoleAndStdio('chain', stdout, stderr);
     const printerSpawn = makePrinterSpawn({
       spawn,
@@ -254,6 +254,7 @@ export const makeTasks = ({
       ...additionChainEnv,
       SLOGFILE: slogFifo.path,
       DEBUG: VerboseDebugEnv,
+      XSNAP_TEST_RECORD: xsnapRecord,
     });
 
     const chainCp = printerSpawn(

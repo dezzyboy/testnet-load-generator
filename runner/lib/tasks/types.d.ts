@@ -67,10 +67,12 @@ export interface TaskBaseOptions {
   readonly config?: unknown;
 }
 
+export type RunChainOptions = TaskBaseOptions & { xsnapRecord?: string };
+
 export interface OrchestratorTasks {
   getEnvInfo(options: TaskBaseOptions): Promise<EnvInfo>;
   setupTasks(options: TaskBaseOptions): Promise<SetupTasksResult>;
-  runChain(options: TaskBaseOptions): Promise<RunChainResult>;
+  runChain(options: RunChainOptions): Promise<RunChainResult>;
   runClient(options: TaskBaseOptions): Promise<RunClientResult>;
   runLoadgen(options: TaskBaseOptions): Promise<RunLoadgenResult>;
 }

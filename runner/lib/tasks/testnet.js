@@ -348,8 +348,8 @@ ${chainName} chain does not yet know of address ${soloAddr}
     return harden(storageLocations);
   };
 
-  /** @param {import("./types.js").TaskBaseOptions} options */
-  const runChain = async ({ stdout, stderr, timeout = 180 }) => {
+  /** @param {import("./types.js").RunChainOptions} options */
+  const runChain = async ({ stdout, stderr, timeout = 180, xsnapRecord }) => {
     const { console, stdio } = getConsoleAndStdio('chain', stdout, stderr);
     const printerSpawn = makePrinterSpawn({
       spawn,
@@ -366,6 +366,7 @@ ${chainName} chain does not yet know of address ${soloAddr}
     const chainEnv = Object.assign(Object.create(process.env), {
       ...additionChainEnv,
       SLOGFILE: slogFifo.path,
+      XSNAP_TEST_RECORD: xsnapRecord,
     });
     // DO NOT enable any debug mode for a chain which doesn't have debug enabled
     // That's because currently any DEBUG env set changes the way vats process console
